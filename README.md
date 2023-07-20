@@ -29,13 +29,19 @@ ContentBlurView {
 **Example with Map**
 
 ```swift
-ContentBlurView {
-    Map(interactionModes: .rotate) {
-        Marker("Apple Park", coordinate: CLLocationCoordinate2D(latitude: 37.334268, longitude: -122.008715))
+
+import MapKit
+struct ContentView: View {
+    var body: some View {
+            ContentBlurView {
+                Map(interactionModes: .rotate) {
+                    Marker("Apple Park", coordinate: CLLocationCoordinate2D(latitude: 37.334268, longitude: -122.008715))
+                }
+                .mapStyle(.imagery)
+            }
+            .ignoresSafeArea(edges: .all)
     }
-    .mapStyle(.imagery)
 }
-.ignoresSafeArea(edges: .all)
 
 ```
 
