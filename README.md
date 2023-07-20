@@ -31,7 +31,7 @@ ContentBlurView {
 ```swift
 ContentBlurView {
     Map(interactionModes: .rotate) {
-        Marker(name, coordinate: coordinate)
+        Marker("Apple Park", coordinate: CLLocationCoordinate2D(latitude: 37.334268, longitude: -122.008715))
     }
     .mapStyle(.imagery)
 }
