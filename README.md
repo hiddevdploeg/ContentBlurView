@@ -1,6 +1,7 @@
 # ContentBlurView
 Easily get a fancy looking gradient blur as seen on watchOS 10
 
+<img width="1242" alt="Example" src="https://github.com/hiddevdploeg/ContentBlurView/assets/5016984/60ad2220-f157-4310-bd13-319bc43b8b21">
 
 
 ## Installation
@@ -26,20 +27,45 @@ ContentBlurView {
 .ignoresSafeArea(edges: .all) // for fullscreen enjoyment
 
 ```
-**Example with Map**
+
+### Directions
+You can decide on which side the blur should start: `.topBlur`, `.leadingBlur`, `trailingBlur` or `.bottomBlur`. the default is `.bottomBlur`
+
+### Text
+It's recommended to use [`HierarchicalShapeStyle`](https://developer.apple.com/documentation/swiftui/hierarchicalshapestyle) as a `.foregroundStyle` of your text as this will make it more vibrant with the background.
+
+
+**Examples**
 
 ```swift
 
 import MapKit
 struct ContentView: View {
     var body: some View {
-            ContentBlurView {
-                Map(interactionModes: .rotate) {
-                    Marker("Apple Park", coordinate: CLLocationCoordinate2D(latitude: 37.334268, longitude: -122.008715))
-                }
-                .mapStyle(.imagery)
+            TabView {
+
+            // Example with image and blur on top
+            ContentBlurView(direction: .topBlur) {
+                AsyncImage(url: URL(string: "https://picsum.photos/800"))
             }
             .ignoresSafeArea(edges: .all)
+
+            // Example with Map and text on top of it
+            ZStack(alignment: .bottom) {
+                ContentBlurView {
+                    Map(interactionModes: .rotate) {
+                        Marker("Apple Park", coordinate: CLLocationCoordinate2D(latitude: 37.334268, longitude: -122.008715))
+                    }
+                    .mapStyle(.imagery)
+                }
+                .ignoresSafeArea(edges: .all)
+                Text("Apple Park")
+                    .font(.headline)
+                    .foregroundStyle(.primary)
+                    .padding()
+            }
+        }
+        .tabViewStyle(.verticalPage)
     }
 }
 
